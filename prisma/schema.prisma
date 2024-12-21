@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Teacher {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String // Hashed password
+  courses   Course[]
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("teachers")
+}
+
+model Course {
+  id        String    @id @default(cuid())
+  name      String
+  teacherId String    @map("teacher_id")
+  teacher   Teacher   @relation(fields: [teacherId], references: [id])
+  students  Student[] @relation("CourseToStudent")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@map("courses")
+}
+
+model Student {
+  id        String   @id @default(cuid())
+  name      String
+  cohortId  String   @map("cohort_id")
+  cohort    Cohort   @relation(fields: [cohortId], references: [id])
+  courses   Course[] @relation("CourseToStudent")
+  joinedAt  DateTime @default(now()) @map("joined_at")
+  lastLogin DateTime @default(now()) @map("last_login")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("students")
+}
+
+model Cohort {
+  id           String    @id @default(cuid())
+  academicYear String    @map("academic_year")
+  students     Student[]
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  @@map("cohorts")
+}
