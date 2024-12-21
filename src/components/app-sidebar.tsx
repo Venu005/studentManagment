@@ -59,7 +59,7 @@ const items = [
 export function AppSidebar() {
   const pathName = usePathname();
   return (
-    <Sidebar collapsible="offcanvas">
+    <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="mb-4 mt-2">
@@ -86,9 +86,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        
-      </SidebarFooter>
     </Sidebar>
   );
 }

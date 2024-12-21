@@ -1,5 +1,5 @@
-import { jwtVerify, SignJWT } from "jose";
-import jwt, { Secret } from "jsonwebtoken";
+import { SignJWT } from "jose";
+
 import prisma from "./db";
 import { compare, hash } from "bcryptjs";
 import { cookies } from "next/headers";
@@ -88,5 +88,3 @@ export async function logout() {
     success: true,
   };
 }
-
-

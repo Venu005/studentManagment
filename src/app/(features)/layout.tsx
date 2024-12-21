@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
 import Header from "@/components/Header";
@@ -6,12 +6,14 @@ import Header from "@/components/Header";
 const DashboardLayOut = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        <Header />
-        {children}
-      </main>
+      <div className="flex h-screen overflow-hidden">
+        <AppSidebar />
+        <div className="flex flex-col flex-1 overflow-hidden">
+          <Header />
+
+          <main className="flex-1 overflow-auto p-4">{children}</main>
+        </div>
+      </div>
     </SidebarProvider>
   );
 };

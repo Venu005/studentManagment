@@ -1,36 +1,25 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-import prisma from ".@/lib.db";
+
 const secret = process.env.JWT_SECRET;
 const key = new TextEncoder().encode(secret);
 
 export async function middleware(req: NextRequest) {
-  const token = req.cookies.get("token");
+  const token = req.cookies.get("token")?.value;
+
   if (!token) {
-    return NextResponse.next();
+    return NextResponse.redirect(new URL("/login", req.url));
   }
+
   try {
-    const payload = await jwtVerify(token.value, key);
-    const teacherId = payload.teacherId as string;
-    const teacher = await prisma.teacher.findUnique({
-      where: {
-        id: teacherId,
-      },
-    });
-    if (teacher) {
-      const res = NextResponse.next();
-      const teacherData = JSON.stringify(teacher);
-      res.headers.set("s-teacher-data", teacherData);
-      res.cookies.set("teacher-data", teacherData, {
-        httpOnly: true,
-      });
-    }
+    await jwtVerify(token, key);
+    return NextResponse.next();
   } catch (error) {
-    console.error(error);
+    return NextResponse.redirect(new URL("/login", req.url));
   }
-  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|static|favicon.ico).*)"],
+  matcher: ["/dashboard/:path*", "/api/teacher"],
 };
