@@ -14,12 +14,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Class {
+  id           String    @id @default(cuid())
+  name         String
+  academicYear String    @map("academic_year")
+  teachers     Teacher[] @relation("TeacherClasses")
+  students     Student[]
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  @@map("classes")
+}
+
 model Teacher {
   id        String   @id @default(cuid())
   name      String
   email     String   @unique
   password  String // Hashed password
   courses   Course[]
+  classes   Class[]  @relation("TeacherClasses")
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("teachers")
@@ -42,6 +54,8 @@ model Student {
   cohortId  String   @map("cohort_id")
   cohort    Cohort   @relation(fields: [cohortId], references: [id])
   courses   Course[] @relation("CourseToStudent")
+  classId   String   @map("class_id")
+  class     Class    @relation(fields: [classId], references: [id])
   joinedAt  DateTime @default(now()) @map("joined_at")
   lastLogin DateTime @default(now()) @map("last_login")
   createdAt DateTime @default(now()) @map("created_at")

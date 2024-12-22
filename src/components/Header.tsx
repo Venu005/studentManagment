@@ -22,7 +22,7 @@ const Header = () => {
           className="max-w-sm"
         />
       </div>
-      <div className="flex items-center space-x-8">
+      <div className=" items-center space-x-8 hidden sm:flex">
         <CircleHelp className="w-6 h-6 cursor-pointer rounded-full  hover:bg-slate-200" />
         <MessageSquareDot className="w-6 h-6 cursor-pointer rounded-full  hover:bg-slate-200" />
         <BellDot className="w-6 h-6 cursor-pointer rounded-full  hover:bg-slate-200" />
