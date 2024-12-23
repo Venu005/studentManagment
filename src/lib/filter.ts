@@ -20,3 +20,17 @@ export async function getClasses(teacherId: string) {
     console.error("Error fetching classes", error);
   }
 }
+
+export async function getCourses(teacherId: string) {
+  try {
+    const courses = await prisma.course.findMany({
+      where: {
+        teacherId,
+      },
+    });
+
+    return courses;
+  } catch (error) {
+    console.error("Error fetching classes", error);
+  }
+}

@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next.config.ts"
-  ],
+, "src/app/api/createStudents"  ],
   "exclude": ["node_modules"]
 }

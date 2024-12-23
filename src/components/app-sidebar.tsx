@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import { Theme } from "./Theme";
+import Link from "next/link";
 
 // Menu items.
 const items = [
@@ -59,11 +60,13 @@ const items = [
 export function AppSidebar() {
   const pathName = usePathname();
   return (
-    <Sidebar>
+    <Sidebar className="bg-white">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-4 mt-2">
-            <img src="/icon.svg" />
+          <SidebarGroupLabel className="mb-4 mt-2" asChild>
+            <Link href="/">
+              <img src="/icon.svg" />
+            </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

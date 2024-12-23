@@ -8,11 +8,11 @@ const DashboardLayOut = ({ children }: { children: React.ReactNode }) => {
     <SidebarProvider>
       <div className="flex h-screen overflow-hidden">
         <AppSidebar />
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="flex flex-col flex-1 overflow-hidden ">
           <SidebarTrigger />
           <Header />
 
-          <main className="flex-1 overflow-auto p-4">{children}</main>
+          <main className="flex-1 overflow-auto p-4 ">{children}</main>
         </div>
       </div>
     </SidebarProvider>

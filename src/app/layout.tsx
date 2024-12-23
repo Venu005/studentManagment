@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${notoSans.variable}`}>{children}</body>
+      <body className={`${notoSans.variable} bg-slate-50`}>{children}</body>
     </html>
   );
 }
