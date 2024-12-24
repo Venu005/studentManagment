@@ -13,7 +13,7 @@ export async function GET(req: Request) {
       );
     }
     const res = await getClasses(teacherId);
-    console.log(res);
+  
     return NextResponse.json(
       {
         success: true,

@@ -4,7 +4,7 @@ import prisma from "@/lib/db";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    console.log(body);
+
     if (!body) {
       return NextResponse.json(
         { success: false, message: "Request body is empty or invalid" },

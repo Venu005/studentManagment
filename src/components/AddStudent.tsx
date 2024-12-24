@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -15,7 +16,7 @@ import { Loader2Icon, PlusIcon } from "lucide-react";
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
 
-export function AddStudent({ onAddStudent }) {
+export function AddStudent({ onAddStudent }: { onAddStudent: any }) {
   const [name, setName] = useState("");
   const [cohortId, setCohortId] = useState("");
   const [classId, setClassId] = useState("");
@@ -64,6 +65,7 @@ export function AddStudent({ onAddStudent }) {
         title: "Failure",
         description: "Failed to add a student",
       });
+      console.log(error);
     } finally {
       setSubmitting(false);
     }
@@ -77,7 +79,7 @@ export function AddStudent({ onAddStudent }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-slate-200 text-slate-500 font-medium rounded-md hover:bg-slate-300 flex gap-x-2">
+        <Button className="bg-slate-200 dark:text-white dark:bg-gray-600 text-slate-500 font-medium rounded-md hover:bg-slate-300 flex gap-x-2">
           Add a student
           <PlusIcon />
         </Button>
@@ -151,7 +153,11 @@ export function AddStudent({ onAddStudent }) {
                 );
               }}
               options={courseOptions}
-              className="basic-multi-select"
+              className={`basic-multi-select ${
+                isOpen
+                  ? "dark:bg-gray-700 dark:text-white"
+                  : "bg-white text-black"
+              }`}
               classNamePrefix="select"
             />
           </div>

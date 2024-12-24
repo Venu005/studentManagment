@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { AddStudent } from "@/components/AddStudent";
 import StudentsTable from "@/components/StudentsTable";
@@ -42,7 +43,7 @@ const Students = () => {
             title: "Failure",
             description: "Failed to fetch students, try again later",
           });
-          console.error("error in fetching student");
+          console.error("error in fetching student", error);
           setisLoading(false);
         }
       } finally {
@@ -60,7 +61,7 @@ const Students = () => {
       isMounted = false;
     };
   }, [user]);
-  const addStudent = (newStudent) => {
+  const addStudent = (newStudent: any) => {
     setStudents((prevStudents) => [...prevStudents, newStudent]);
   };
   if (isLoading) {
@@ -80,15 +81,15 @@ const Students = () => {
       : true;
     return matchesClass && matchesCohort;
   });
-  console.log(filteredStudents);
+
   return (
-    <div className="p-2 rounded-lg bg-white">
+    <div className="p-2 rounded-lg bg-white dark:bg-black">
       <div className="flex justify-between items-center mb-4 mt-4 p-2">
         <div className="flex space-x-4">
           <select
             value={selectedClass}
             onChange={(e) => setSelectedClass(e.target.value)}
-            className="border p-1 rounded font-medium text-slate-500 bg-slate-200 border-slate-300 cursor-pointer text-sm"
+            className="border p-1 rounded font-medium dark:text-white dark:bg-slate-800 text-slate-500 bg-slate-200 border-slate-300 cursor-pointer text-sm"
           >
             <option value="">Select Class</option>
             <option value="CBSE9">CBSE 9</option>
@@ -97,10 +98,12 @@ const Students = () => {
           <select
             value={selectedCohort}
             onChange={(e) => setSelectedCohort(e.target.value)}
-            className="border p-1 rounded font-medium text-slate-500 bg-slate-200 border-slate-300 cursor-pointer text-sm"
+            className="border  p-1 rounded font-medium dark:text-white dark:bg-slate-800 text-slate-500 bg-slate-200 border-slate-300 cursor-pointer text-sm"
           >
             <option value="">Select Cohort</option>
-            <option value="AY 2024-25">AY 2024-25</option>
+            <option value="AY 2024-25" className="">
+              AY 2024-25
+            </option>
             <option value="AY 2025-26">AY 2025-26</option>
           </select>
         </div>

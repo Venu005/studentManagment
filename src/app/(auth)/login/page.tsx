@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,17 +18,18 @@ import { useToast } from "@/hooks/use-toast";
 import useUserStore from "@/store/useStore";
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("123@gmail.com");
+  const [password, setPassword] = useState("iamhappy123");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
   const setUser = useUserStore((state) => state.setUser);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
+    setSubmitting(true);
     const teacherData = {
       email,
       password,
@@ -37,30 +38,32 @@ export default function SignIn() {
       const res = await axios.post("/api/auth/login", teacherData);
       if (res.status === 200) {
         const data = res.data.data;
-        console.log(data);
+
         localStorage.setItem("token", data.token);
         setUser(data.teacher);
         toast({
           title: "Success",
           description: "Logged in successfully",
         });
-        router.replace("/dashboard");
-        setEmail("");
-        setPassword("");
+        router.replace("/students");
+        setSubmitting(false);
       } else {
         setErrorMessage(res.data.data.error);
         toast({
           title: "Error",
           description: res.data.data.error,
         });
-        console.log(errorMessage);
       }
+      setEmail("");
+      setPassword("");
     } catch (error: any) {
       setErrorMessage(error.response?.data?.error || "An error occurred");
       toast({
         title: "Error",
         description: error.response?.data?.error || "An error occurred",
       });
+    } finally {
+      setSubmitting(false);
     }
   };
   return (
@@ -117,7 +120,11 @@ export default function SignIn() {
               </div>
             </div>
             <Button className="w-full" type="submit">
-              Sign in
+              {submitting ? (
+                <Loader2Icon className="animate-spin size-4" />
+              ) : (
+                <div>Sign in</div>
+              )}
             </Button>
           </form>
         </CardContent>

@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       );
     }
     const res = await getStudents(teacherId);
-    console.log(res);
+
     return NextResponse.json(
       {
         success: true,

@@ -6,7 +6,7 @@ import { Loader2Icon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const Dasboard = () => {
-  const [classes, setClasses] = useState([]);
+  const [classes, setClasses] = useState<{ name: string }[]>([]);
   const [isLoading, setLoading] = useState(true);
   const user = useUserStore((state) => state.user);
   useEffect(() => {

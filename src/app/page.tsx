@@ -70,7 +70,9 @@ export default function Home() {
               size="lg"
               className="w-full min-[400px]:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity"
             >
-              <Link href="/login">Get Started Free</Link>
+              <Link href="/login" className="dark:text-white">
+                Get Started Free
+              </Link>
             </Button>
           </nav>
 
@@ -91,7 +93,7 @@ export default function Home() {
                 </Link>
                 <Button
                   asChild
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity dark:text-white"
                 >
                   Get Started Free
                 </Button>
@@ -128,7 +130,9 @@ export default function Home() {
                   size="lg"
                   className="w-full min-[400px]:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity"
                 >
-                  <Link href="/login">Get Started Free</Link>
+                  <Link href="/login" className="dark:text-white">
+                    Get Started Free
+                  </Link>
                 </Button>
                 <Button
                   asChild
@@ -209,8 +213,11 @@ export default function Home() {
                   "Get insights and analytics about your classes at a glance.",
               },
             ].map((feature, i) => (
-              <Card key={i} className="group relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 transition-opacity group-hover:opacity-5" />
+              <Card
+                key={i}
+                className="group relative overflow-hidden dark:border-slate-600"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600  opacity-0 transition-opacity group-hover:opacity-5" />
                 <CardHeader>
                   <div className="mb-4 rounded-lg bg-primary/10 p-3 w-fit">
                     <feature.icon className="h-6 w-6 text-primary" />
@@ -255,7 +262,10 @@ export default function Home() {
                 role: "Elementary Teacher",
               },
             ].map((testimonial, i) => (
-              <Card key={i} className="relative overflow-hidden">
+              <Card
+                key={i}
+                className="relative overflow-hidden dark:border-slate-600"
+              >
                 <CardContent className="pt-6">
                   <div className="mb-4 flex">
                     {[...Array(5)].map((_, i) => (
@@ -309,6 +319,7 @@ export default function Home() {
                 </div>
                 <div className="relative hidden lg:block">
                   <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 opacity-30 blur-3xl -z-10" />
+                  <div className="absolute -inset-4 bg-gradient-to-r from-gray-700 to-gray-900 opacity-30 blur-3xl -z-10 dark:block hidden" />
                   <Image
                     src="/hero_1.jpeg"
                     alt="Dashboard Preview"
